@@ -40,6 +40,31 @@ a {
   overflow: hidden;
 }
 
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #f7f7f5 0%, #efefec 100%);
+}
+
+.intro-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  letter-spacing: -0.045em;
+  font-weight: 560;
+  color: rgba(16, 16, 16, 0.9);
+  line-height: 0.95;
+}
+
+.intro-word {
+  display: inline-block;
+}
+
 .shell {
   width: min(1320px, 100% - 2.5rem);
   margin-inline: auto;

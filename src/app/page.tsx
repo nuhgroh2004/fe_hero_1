@@ -108,6 +108,18 @@ const faqItems: FaqItem[] = [
   },
 ];
 
+const introWords = ["Now", "is", "the", "time."];
+
+const INTRO_TIMING = {
+  wordDelay: 0.38,
+  wordStagger: 0.34,
+  wordDuration: 0.72,
+  wordExitDuration: 0.44,
+  holdAfterWords: 0.72,
+  overlayExitDuration: 1.05,
+  heroGap: 0.16,
+} as const;
+
 function Reveal({
   children,
   delay = 0,
@@ -135,6 +147,11 @@ export default function Home() {
   const [activeAiPanel, setActiveAiPanel] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [introPhase, setIntroPhase] = useState<"enter" | "exit" | "done">(
+    "enter",
+  );
+  const [introVisible, setIntroVisible] = useState(true);
+  const [heroReady, setHeroReady] = useState(false);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -174,8 +191,115 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const textRevealDoneAt =
+      (INTRO_TIMING.wordDelay +
+        INTRO_TIMING.wordStagger * (introWords.length - 1) +
+        INTRO_TIMING.wordDuration) *
+      1000;
+
+    const startExitAt = textRevealDoneAt + INTRO_TIMING.holdAfterWords * 1000;
+    const overlayGoneAt = startExitAt + INTRO_TIMING.overlayExitDuration * 1000;
+
+    const startExitTimer = window.setTimeout(() => {
+      setIntroPhase("exit");
+    }, startExitAt);
+
+    const hideOverlayTimer = window.setTimeout(() => {
+      setIntroVisible(false);
+      setIntroPhase("done");
+    }, overlayGoneAt);
+
+    const showHeroTimer = window.setTimeout(() => {
+      setHeroReady(true);
+    }, overlayGoneAt + INTRO_TIMING.heroGap * 1000);
+
+    return () => {
+      window.clearTimeout(startExitTimer);
+      window.clearTimeout(hideOverlayTimer);
+      window.clearTimeout(showHeroTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = introVisible ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [introVisible]);
+
   return (
     <div className="fixa-page">
+      <AnimatePresence>
+        {introVisible ? (
+          <motion.div
+            className="intro-overlay"
+            initial={{ y: 0, opacity: 1 }}
+            animate={introPhase === "exit" ? { y: "-100%" } : { y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: INTRO_TIMING.overlayExitDuration,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <motion.div
+              className="intro-line"
+              initial="hidden"
+              animate={introPhase === "enter" ? "visible" : "exit"}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: INTRO_TIMING.wordStagger,
+                    delayChildren: INTRO_TIMING.wordDelay,
+                  },
+                },
+                exit: {
+                  transition: {
+                    staggerChildren: 0.08,
+                  },
+                },
+              }}
+            >
+              {introWords.map((word) => (
+                <motion.span
+                  key={word}
+                  className="intro-word"
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      x: -22,
+                      filter: "blur(12px)",
+                    },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      filter: "blur(0px)",
+                      transition: {
+                        duration: INTRO_TIMING.wordDuration,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
+                    },
+                    exit: {
+                      opacity: 0,
+                      x: 26,
+                      filter: "blur(10px)",
+                      transition: {
+                        duration: INTRO_TIMING.wordExitDuration,
+                        ease: [0.4, 0, 1, 1],
+                      },
+                    },
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <header className="top-nav-wrap">
         <nav className="top-nav">
           <a href="#hero" className="brand" onClick={() => setMobileMenuOpen(false)}>
@@ -241,24 +365,62 @@ export default function Home() {
         </video>
         <div className="hero-overlay" />
         <div className="hero-content shell">
-          <Reveal className="hero-title-wrap" delay={0.1}>
-            <h1 className="hero-title">Plan your day</h1>
-            <h1 className="hero-title">
+          <div className="hero-title-wrap">
+            <motion.h1
+              className="hero-title"
+              initial={{ opacity: 0, y: 36, filter: "blur(14px)" }}
+              animate={
+                heroReady
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 36, filter: "blur(14px)" }
+              }
+              transition={{ duration: 1.45, delay: 0.16, ease: [0.19, 1, 0.22, 1] }}
+            >
+              Plan your day
+            </motion.h1>
+            <motion.h1
+              className="hero-title"
+              initial={{ opacity: 0, y: 36, filter: "blur(14px)" }}
+              animate={
+                heroReady
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 36, filter: "blur(14px)" }
+              }
+              transition={{ duration: 1.45, delay: 0.48, ease: [0.19, 1, 0.22, 1] }}
+            >
               without <span className="serif-accent">overwhelm</span>
-            </h1>
-          </Reveal>
+            </motion.h1>
+          </div>
 
-          <Reveal className="hero-sub" delay={0.2}>
+          <motion.p
+            className="hero-sub"
+            initial={{ opacity: 0, y: 26, filter: "blur(10px)" }}
+            animate={
+              heroReady
+                ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { opacity: 0, y: 26, filter: "blur(10px)" }
+            }
+            transition={{ duration: 1.2, delay: 0.82, ease: [0.19, 1, 0.22, 1] }}
+          >
             Fixa is a simple, ADHD-friendly planner that turns your thoughts into
             a clear plan.
-          </Reveal>
+          </motion.p>
 
-          <Reveal className="hero-cta" delay={0.3}>
+          <motion.div
+            className="hero-cta"
+            initial={{ opacity: 0, y: 24, scale: 0.985, filter: "blur(10px)" }}
+            animate={
+              heroReady
+                ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+                : { opacity: 0, y: 24, scale: 0.985, filter: "blur(10px)" }
+            }
+            transition={{ duration: 1.24, delay: 1.06, ease: [0.19, 1, 0.22, 1] }}
+          >
             <p>No clutter. No complicated setup. Just your day, clearly planned.</p>
             <a href="#footer-cta" className="waitlist-btn solid">
               Join the waitlist
             </a>
-          </Reveal>
+          </motion.div>
         </div>
       </section>
 
@@ -292,11 +454,11 @@ export default function Home() {
 
           <Reveal delay={0.1}>
             <div className="preview-card">
-                  <Image
+              <Image
                 src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1400&q=80"
                 alt="Soft desk setup"
-                    width={1400}
-                    height={980}
+                width={1400}
+                height={980}
               />
             </div>
           </Reveal>
@@ -359,7 +521,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.06 }}
                 onMouseEnter={() => setActiveFeature(index)}
               >
-                    <Image src={item.image} alt={item.title} width={1400} height={850} />
+                <Image src={item.image} alt={item.title} width={1400} height={850} />
                 <div className="feature-card-body">
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -396,11 +558,11 @@ export default function Home() {
             </Reveal>
 
             <Reveal className="ai-preview" delay={0.2}>
-                  <Image
+              <Image
                 src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80"
                 alt="Phone mockup"
-                    width={1000}
-                    height={1500}
+                width={1000}
+                height={1500}
               />
               <div className="ai-preview-footer">
                 <span className="active-dot" />
