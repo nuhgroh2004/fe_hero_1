@@ -143,7 +143,6 @@ function Reveal({
 }
 
 export default function Home() {
-  const [activeFeature, setActiveFeature] = useState(0);
   const [activeAiPanel, setActiveAiPanel] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -173,14 +172,6 @@ export default function Home() {
       cancelAnimationFrame(frame);
       lenis.destroy();
     };
-  }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % deepFeatures.length);
-    }, 4200);
-
-    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -485,8 +476,8 @@ export default function Home() {
       </section>
 
       <section className="features-dark" id="features">
-        <div className="shell features-grid">
-          <Reveal className="features-sticky">
+        <div className="shell features-shell">
+          <Reveal className="features-intro">
             <h2 className="section-title">
               Tools that work with your mind, not against it
             </h2>
@@ -496,37 +487,19 @@ export default function Home() {
             <a href="#footer-cta" className="waitlist-btn solid">
               Join the waitlist
             </a>
-            <div className="feature-tags">
-              {deepFeatures.map((item, index) => (
-                <button
-                  key={item.title}
-                  type="button"
-                  onClick={() => setActiveFeature(index)}
-                  className={index === activeFeature ? "active" : ""}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
           </Reveal>
 
-          <div className="feature-cards-col">
+          <div className="features-static-grid">
             {deepFeatures.map((item, index) => (
-              <motion.article
-                key={item.title}
-                className={`feature-card ${index === activeFeature ? "focused" : ""}`}
-                initial={{ opacity: 0, x: 24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: index * 0.06 }}
-                onMouseEnter={() => setActiveFeature(index)}
-              >
-                <Image src={item.image} alt={item.title} width={1400} height={850} />
-                <div className="feature-card-body">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-              </motion.article>
+              <Reveal key={item.title} delay={index * 0.08}>
+                <article className="feature-card feature-card-static">
+                  <Image src={item.image} alt={item.title} width={1400} height={850} />
+                  <div className="feature-card-body">
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
