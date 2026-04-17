@@ -6,9 +6,8 @@ import Image from "next/image";
 import { useEffect, useState, type ReactNode } from "react";
 
 type FeatureItem = {
-  title: string;
-  description: string;
   image: string;
+  alt: string;
 };
 
 type AiPanel = {
@@ -23,92 +22,120 @@ type FaqItem = {
 
 const quickPoints = [
   {
-    title: "Know what to do next",
-    description: "Fixa removes the clutter that makes planning feel exhausting.",
+    title: "Identitas visual yang kuat",
+    description:
+      "Membangun logo, warna, dan tipografi yang konsisten agar brand mudah dikenali.",
   },
   {
-    title: "One simple plan for today",
-    description: "It helps you focus on today without feeling like you are behind.",
+    title: "Desain yang siap dipakai",
+    description:
+      "Setiap aset disiapkan untuk kebutuhan digital dan cetak tanpa langkah yang rumit.",
   },
   {
-    title: "Add tasks naturally by speaking",
-    description: "Say what you need to do and let the planner shape it for you.",
+    title: "Kolaborasi yang jelas",
+    description:
+      "Brief, revisi, dan finalisasi berjalan rapi supaya hasil sesuai arah brand Anda.",
   },
 ];
 
 const deepFeatures: FeatureItem[] = [
   {
-    title: "Designed for calm, not chaos",
-    description:
-      "Every screen is built to be clear and gentle, so your attention stays on doing instead of figuring things out.",
-    image:
-      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1400&q=80",
+    image: "/proyek/foto-1.png",
+    alt: "Karya desain 01",
   },
   {
-    title: "The effortless way to begin",
-    description:
-      "When starting feels hard, Fixa gives you light structure and ready-made routines to reduce friction.",
-    image:
-      "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=80",
+    image: "/proyek/gambar-2.png",
+    alt: "Karya desain 02",
   },
   {
-    title: "Stay fully focused",
-    description:
-      "A focused timer with clear boundaries helps you stay in the zone and move through tasks without noise.",
-    image:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
+    image: "/proyek/gambar-3.png",
+    alt: "Karya desain 03",
   },
   {
-    title: "Small steps, zero guilt",
-    description:
-      "Track small wins, build momentum, and trust the process as consistent steps compound into real progress.",
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=80",
+    image: "/proyek/gambar-4.png",
+    alt: "Karya desain 04",
+  },
+  {
+    image: "/proyek/gambar-5.jpg",
+    alt: "Karya desain 05",
+  },
+  {
+    image: "/proyek/gambar-6.jpg",
+    alt: "Karya desain 06",
+  },
+  {
+    image: "/proyek/gambar-7.jpg",
+    alt: "Karya desain 07",
+  },
+  {
+    image: "/proyek/gambar-8.jpg",
+    alt: "Karya desain 08",
+  },
+  {
+    image: "/proyek/gambar-9.jpg",
+    alt: "Karya desain 09",
+  },
+  {
+    image: "/proyek/gambar-10.jpg",
+    alt: "Karya desain 10",
+  },
+  {
+    image: "/proyek/gambar-11.jpg",
+    alt: "Karya desain 11",
+  },
+  {
+    image: "/proyek/gambar-12.png",
+    alt: "Karya desain 12",
   },
 ];
 
 const aiPanels: AiPanel[] = [
   {
-    title: "Talk like a human",
+    title: "Brand Identity",
     description:
-      "Say or type what you need to do. Fixa AI understands intent and drops tasks into your day instantly.",
+      "Mulai dari riset visual, eksplorasi logo, hingga guideline agar citra brand terasa utuh.",
   },
   {
-    title: "Always one step ahead",
+    title: "Social Media Design",
     description:
-      "Fixa AI helps you break down larger tasks into smaller next actions so you can start without overthinking.",
+      "Desain konten mingguan yang konsisten, menarik, dan sesuai karakter audiens Anda.",
   },
   {
-    title: "Control tasks without stress",
+    title: "Print & Editorial",
     description:
-      "Prioritize, reorder, and simplify your list in seconds with AI suggestions tuned for low-friction planning.",
+      "Materi cetak seperti brosur, poster, dan company profile dengan layout yang bersih dan efektif.",
   },
 ];
 
 const faqItems: FaqItem[] = [
   {
-    question: "Is Fixa made for people with ADHD?",
+    question: "Pendidikan terakhir apa?",
     answer:
-      "Yes. Fixa is built around low-friction planning, less visual noise, and a calmer structure designed to help you begin.",
+      "Pendidikan terakhir saya adalah SMA N 1 Balapulang.",
   },
   {
-    question: "What makes Fixa different from other to-do apps?",
+    question: "Berapa umur saya?",
     answer:
-      "Most productivity tools add more lists and pressure. Fixa focuses on clarity, gentle structure, and reducing decision fatigue.",
+      "Saat ini saya berusia 18 tahun.",
   },
   {
-    question: "Will Fixa help me stay focused?",
+    question: "Di mana alamat saya?",
     answer:
-      "Yes. Fixa includes focus tools like a timer, but the key difference is the calmer interface that helps you keep going.",
+      "Saya berdomisili di Balapulang, Kabupaten Tegal.",
   },
   {
-    question: "How do you handle privacy?",
+    question: "Apa minat utama saya?",
     answer:
-      "Your tasks are personal. Fixa is built with privacy and security in mind and clear data transparency before launch.",
+      "Saya memiliki minat besar di bidang editing dan desain visual.",
+  },
+  {
+    question: "Apakah saya siap bekerja?",
+    answer:
+      "Ya, saya siap bekerja, belajar hal baru, dan berkolaborasi secara profesional.",
   },
 ];
 
-const introWords = ["Now", "is", "the", "time."];
+const introWords = ["Visual", "that", "tell", "stories."];
 
 const INTRO_TIMING = {
   wordDelay: 0.38,
@@ -294,15 +321,15 @@ export default function Home() {
       <header className="top-nav-wrap">
         <nav className="top-nav">
           <a href="#hero" className="brand" onClick={() => setMobileMenuOpen(false)}>
-            Fixa.
+            Diva.
           </a>
           <div className="desktop-nav-links">
-            <a href="#features">Features</a>
-            <a href="#fixa-ai">Fixa AI</a>
+            <a href="#features">Portofolio</a>
+            <a href="#services">Keahlian</a>
             <a href="#faq">FAQ</a>
           </div>
           <a className="waitlist-btn desktop-only" href="#footer-cta">
-            Join the waitlist
+            Diskusikan proyek
           </a>
           <button
             type="button"
@@ -324,16 +351,16 @@ export default function Home() {
               transition={{ duration: 0.3 }}
             >
               <a href="#features" onClick={() => setMobileMenuOpen(false)}>
-                Features
+                Portofolio
               </a>
-              <a href="#fixa-ai" onClick={() => setMobileMenuOpen(false)}>
-                Fixa AI
+              <a href="#services" onClick={() => setMobileMenuOpen(false)}>
+                Keahlian
               </a>
               <a href="#faq" onClick={() => setMobileMenuOpen(false)}>
                 FAQ
               </a>
               <a href="#footer-cta" onClick={() => setMobileMenuOpen(false)}>
-                Join the waitlist
+                Diskusikan proyek
               </a>
             </motion.div>
           ) : null}
@@ -347,10 +374,11 @@ export default function Home() {
           muted
           loop
           playsInline
-          poster="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1920&q=80"
+          // poster="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1920&q=80"
         >
           <source
-            src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4"
+            // src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4"
+            src="/video-hero.mp4"
             type="video/mp4"
           />
         </video>
@@ -367,7 +395,7 @@ export default function Home() {
               }
               transition={{ duration: 1.45, delay: 0.16, ease: [0.19, 1, 0.22, 1] }}
             >
-              Plan your day
+              Riski Diva Afriyani
             </motion.h1>
             <motion.h1
               className="hero-title"
@@ -379,7 +407,7 @@ export default function Home() {
               }
               transition={{ duration: 1.45, delay: 0.48, ease: [0.19, 1, 0.22, 1] }}
             >
-              without <span className="serif-accent">overwhelm</span>
+              Graphic <span className="serif-accent">Designer</span>
             </motion.h1>
           </div>
 
@@ -393,8 +421,8 @@ export default function Home() {
             }
             transition={{ duration: 1.2, delay: 0.82, ease: [0.19, 1, 0.22, 1] }}
           >
-            Fixa is a simple, ADHD-friendly planner that turns your thoughts into
-            a clear plan.
+            Saya membantu brand tampil lebih kuat melalui desain visual yang
+            strategis, estetik, dan mudah diingat.
           </motion.p>
 
           <motion.div
@@ -407,9 +435,12 @@ export default function Home() {
             }
             transition={{ duration: 1.24, delay: 1.06, ease: [0.19, 1, 0.22, 1] }}
           >
-            <p>No clutter. No complicated setup. Just your day, clearly planned.</p>
+            <p>
+              Dari ide awal hingga final artwork, setiap detail dirancang agar
+              pesan brand Anda terasa tepat sasaran.
+            </p>
             <a href="#footer-cta" className="waitlist-btn solid">
-              Join the waitlist
+              Mulai kolaborasi
             </a>
           </motion.div>
         </div>
@@ -418,36 +449,26 @@ export default function Home() {
       <section className="light-block" id="difference">
         <div className="shell section-grid">
           <Reveal>
-            <div className="pill">ADHD-Friendly</div>
+            <div className="pill">Graphic Designer</div>
             <h2 className="section-title dark-text">
-              Here, you stop fighting your brain and start working with it.
+              Profil Riski Diva Afriyani
             </h2>
             <p className="section-copy dark-copy">
-              We provide clear tools designed specifically for people with ADHD.
+              Saya adalah desainer grafis yang berfokus pada pembuatan visual
+              brand yang kuat, modern, dan mudah diingat.
             </p>
-            <div className="metric-wrap">
-              <div className="metric-row">
-                <span>Anxiety</span>
-                <strong>80%</strong>
-              </div>
-              <div className="metric-bar">
-                <div style={{ width: "80%" }} />
-              </div>
-              <div className="metric-row">
-                <span>Productivity</span>
-                <strong>21%</strong>
-              </div>
-              <div className="metric-bar">
-                <div style={{ width: "21%" }} />
-              </div>
-            </div>
+            <p className="section-copy dark-copy">
+              Keahlian saya mencakup brand identity, desain konten media sosial,
+              materi promosi, dan layout editorial dengan pendekatan strategis dan
+              estetika yang relevan untuk target audiens.
+            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
             <div className="preview-card">
               <Image
-                src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1400&q=80"
-                alt="Soft desk setup"
+                src="/foto-diva.jpeg"
+                alt="Graphic design workspace"
                 width={1400}
                 height={980}
               />
@@ -458,8 +479,8 @@ export default function Home() {
 
       <section className="shell designed-section">
         <Reveal>
-          <p className="small-lead">Traditional planners do not work well for many people</p>
-          <h2 className="big-title">Fixa is designed differently</h2>
+          <p className="small-lead">Pilihan karya dari berbagai kebutuhan visual brand</p>
+          <h2 className="big-title">Portofolio yang dirancang dengan strategi</h2>
         </Reveal>
 
         <div className="three-cards">
@@ -479,25 +500,22 @@ export default function Home() {
         <div className="shell features-shell">
           <Reveal className="features-intro">
             <h2 className="section-title">
-              Tools that work with your mind, not against it
+              Proyek terbaru
             </h2>
             <p className="section-copy">
-              No clutter. No complicated setup. Just your day, clearly planned.
+              Seleksi karya desain untuk identitas brand, kampanye digital, dan
+              kebutuhan promosi cetak.
             </p>
             <a href="#footer-cta" className="waitlist-btn solid">
-              Join the waitlist
+              Mulai proyek
             </a>
           </Reveal>
 
           <div className="features-static-grid">
             {deepFeatures.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.08}>
+              <Reveal key={item.image} delay={index * 0.06}>
                 <article className="feature-card feature-card-static">
-                  <Image src={item.image} alt={item.title} width={1400} height={850} />
-                  <div className="feature-card-body">
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
+                  <Image src={item.image} alt={item.alt} width={1080} height={1920} />
                 </article>
               </Reveal>
             ))}
@@ -505,13 +523,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="ai-section" id="fixa-ai">
+      <section className="ai-section" id="services">
         <div className="shell ai-shell">
           <Reveal>
-            <div className="pill">Fixa AI</div>
+            <div className="pill">Keahlian</div>
             <h2 className="section-title">
-              Meet Fixa AI, your AI bestie for getting things done without
-              overthinking.
+              Keahlian desain grafis untuk membantu brand Anda tampil lebih
+              profesional dan berkarakter.
             </h2>
           </Reveal>
 
@@ -532,14 +550,13 @@ export default function Home() {
 
             <Reveal className="ai-preview" delay={0.2}>
               <Image
-                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=80"
-                alt="Phone mockup"
+                src="/diva-2.jpeg"
+                alt="Design showcase"
                 width={1000}
                 height={1500}
               />
               <div className="ai-preview-footer">
                 <span className="active-dot" />
-                <span>{activeAiPanel + 1}/3</span>
               </div>
             </Reveal>
           </div>
@@ -550,17 +567,17 @@ export default function Home() {
         <div className="loud-bg" />
         <div className="shell loud-content">
           <Reveal>
-            <h2>For days when your brain feels too loud.</h2>
+            <h2>Mari wujudkan visual brand yang berani, relevan, dan berkesan.</h2>
             <a href="#footer-cta" className="waitlist-btn solid">
-              Join the waitlist
+              Hubungi saya
             </a>
           </Reveal>
           <Reveal delay={0.1} className="chip-cloud">
-            <span>Task Breakdown</span>
-            <span>Brain Dump</span>
-            <span>Priorities</span>
-            <span>Small Wins</span>
-            <span>Focus Timer</span>
+            <span>Logo Design</span>
+            <span>Social Media Kit</span>
+            <span>Packaging Visual</span>
+            <span>Editorial Layout</span>
+            <span>Creative Direction</span>
           </Reveal>
         </div>
       </section>
@@ -570,8 +587,7 @@ export default function Home() {
           <Reveal>
             <div className="pill">FAQ</div>
             <h2 className="section-title dark-text">
-              We are here to help. If you do not find your answer, contact us any
-              time.
+              Ringkasan profil singkat untuk mengenal saya lebih dekat.
             </h2>
           </Reveal>
 
@@ -618,42 +634,41 @@ export default function Home() {
 
       <footer className="shell" id="footer-cta">
         <div className="footer-card">
-          <h2 className="footer-big-title">Gentle planning for busy minds</h2>
+          <h2 className="footer-big-title">Siap memperkuat visual brand Anda?</h2>
           <div className="footer-grid">
             <div>
-              <h3>Fixa.</h3>
-              <p>Get early updates.</p>
-              <p>Just the essentials from us, never spam, never noise.</p>
-              <a href="#hero" className="waitlist-btn solid footer-btn">
-                Join the waitlist
-              </a>
+              <h3>Diva.</h3>
+              <p>Tersedia untuk proyek freelance.</p>
+              <p>
+                Terbuka untuk kolaborasi dengan UMKM, personal brand, dan tim
+                perusahaan.
+              </p>
+              
             </div>
             <div className="footer-links-grid">
               <div>
                 <h4>Information</h4>
                 <a href="#hero">Home</a>
-                <a href="#features">Features</a>
-                <a href="#fixa-ai">Fixa AI</a>
+                <a href="#features">Portofolio</a>
+                <a href="#services">Keahlian</a>
                 <a href="#faq">FAQ</a>
               </div>
               <div>
                 <h4>Contact</h4>
-                <a href="mailto:info@fixaplan.com">info@fixaplan.com</a>
+                <a href="tel:+6283136352790">+62 831-3635-2790</a>
+                <a href="mailto:divaafriyani653@gmail.com">divaafriyani653@gmail.com</a>
               </div>
               <div>
                 <h4>Social</h4>
-                <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-                  LinkedIn
+                <a href="https://www.instagram.com/ddvaaavryni" target="_blank" rel="noreferrer">
+                  @ddvaaavryni
                 </a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <span>© 2026. Fixa. All rights reserved.</span>
-            <span>Privacy Policy</span>
+            <span>© 2026. Diva Studio. All rights reserved.</span>
+            
           </div>
         </div>
       </footer>
